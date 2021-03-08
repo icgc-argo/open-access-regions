@@ -268,10 +268,10 @@ element_type = {
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument('-g','--gtf_dir', dest="gtf_dir", type=str, default="../data/hg38/annotation", help="local dir for GTF file: only ENSEMBL or GENCODE GTF file accepted")
-    parser.add_argument('-u','--gtf_ftp', dest="gtf_ftp", type=str, default="ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human", help="specify URL to download GTF file. Use GENCODE by default")
+    parser.add_argument('-g','--gtf_dir', dest="gtf_dir", type=str, default="../data/hg38/annotation", help="local directory for GTF file: only ENSEMBL or GENCODE GTF file accepted")
+    parser.add_argument('-u','--gtf_url', dest="gtf_url", type=str, default="ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human", help="specify URL to download GTF file. Use GENCODE by default")
     parser.add_argument('-v','--gtf_version', dest="gtf_version", type=str, default="37", help="specify GTF release version to download")
-    parser.add_argument('-l','--glen', dest='glen',type=str, default="../data/hg38/hg38.chrom.sizes",help="file name for genome size")
+    parser.add_argument('-l','--glen', dest='glen',type=str, default="../data/hg38/hg38.chrom.sizes",help="file for genome size")
     parser.add_argument('-w','--window',dest='window_size',type=int,default=200,help="the value of w in calculating TSS regions. Default: 200")
     parser.add_argument('-b','--bed_dir',dest='bed_dir',default="../data/hg38/bed",help="directory for output bed files")
     parser.add_argument('-r', '--regions',dest="regions",type=str, nargs='+',default=['utr5', 'utr3', 'cds', 'exon', 'intron', 'protein_coding','protein_coding_promoter', \
@@ -279,14 +279,14 @@ def main():
             help="specify regions to generate bed files" )
     parser.add_argument('-o', '--open_access_regions',dest="open_access_regions",type=str, nargs='+',default=['utr5', 'utr3', 'cds', 'exon', 'protein_coding_promoter', \
         'protein_coding_splice_site', 'lncRNA_promoter', 'lncRNA_splice_site', 'smallRNA', 'smallRNA_promoter'],\
-            help="specify regions to generate bed files" )
+            help="specify regions to be included into open access tier" )
 
     args = parser.parse_args()
     regions = args.regions
     open_access_regions = args.open_access_regions
 
     # download the GENCODE annotation file if it does not exist locally
-    url = args.gtf_ftp+ '/release_'+args.gtf_version+'/gencode.v'+args.gtf_version+'.annotation.gtf.gz'
+    url = args.gtf_url+ '/release_'+args.gtf_version+'/gencode.v'+args.gtf_version+'.annotation.gtf.gz'
     if not os.path.exists(args.gtf_dir):
         os.makedirs(args.gtf_dir)
     GTFfile = os.path.join(args.gtf_dir, url.split('/')[-1])
@@ -301,6 +301,11 @@ def main():
         if not os.path.exists(GTFfile_ensembl): gencode2ensembl(GTFfile,GTFfile_ensembl)
         GTFfile = GTFfile_ensembl
     print('------> Analyzing '+GTFfile)
+
+    # create output bed dir if not existing
+    bed_dir = os.path.join(args.bed_dir, ftype.lower()+'.v'+args.gtf_version)
+    if not os.path.exists(bed_dir):
+        os.makedirs(bed_dir)
 
     gene_dict = get_gene_dict(GTFfile)
 
@@ -351,14 +356,14 @@ def main():
 
     open_access_region_list = []
     for region in gencode_regions:
-        create_region_bed(gencode_regions[region], args.bed_dir, region)
+        create_region_bed(gencode_regions[region], bed_dir, region)
         if not region in open_access_regions: continue
         open_access_region_list += gencode_regions[region]
     merged_open_access_region_list = bedmerge(open_access_region_list)
 
     control_access_region_list = get_conjugate(merged_open_access_region_list, genomeLen)
-    create_region_bed(merged_open_access_region_list, args.bed_dir, 'open_access')
-    create_region_bed(control_access_region_list, args.bed_dir, 'control_access')        
+    create_region_bed(merged_open_access_region_list, bed_dir, 'open_access')
+    create_region_bed(control_access_region_list, bed_dir, 'control_access')        
         
 if __name__ == "__main__":
     main()
