@@ -23,30 +23,31 @@ ICGC-ARGO Open-access regions definitions and bed files
 
 
 ## Bed files for Open-access Regions
-- You can find the generated bed files for Open-access Regions at `data/hg38/bed/gencode.v37/`
+- You can find the generated bed files for Open-access Regions at your local folder `data/hg38/bed/gencode.v37/`
 - Here each genomic element has its own bed file for example: `exon.bed.gz`, `smallRNA.bed.gz`, `utr3.bed.gz` and etc.
 - `open_access.bed.gz` contains the union of all the Open-access regions defined above.
 - `control_access.bed.gz` contains the complementary regions of Open-access upon whole genome.
+- However ONLY `open_access.2021****.bed.gz` are kept in git.
 
 ```
 data/hg38/bed/
 └── gencode.v37
-    ├── cds.bed.gz
-    ├── control_access.bed.gz
-    ├── exon.bed.gz
-    ├── intron.bed.gz
-    ├── lncRNA.bed.gz
-    ├── lncRNA_promoter.bed.gz
-    ├── lncRNA_splice_site.bed.gz
-    ├── open_access.bed.gz
-    ├── protein_coding.bed.gz
-    ├── protein_coding_promoter.bed.gz
-    ├── protein_coding_splice_site.bed.gz
-    ├── smallRNA.bed.gz
-    ├── smallRNA_promoter.bed.gz
-    ├── smallRNA_splice_site.bed.gz
-    ├── utr3.bed.gz
-    └── utr5.bed.gz
+    ├── cds.2021****.bed.gz
+    ├── control_access.2021****.bed.gz
+    ├── exon.2021****.bed.gz
+    ├── intron.2021****.bed.gz
+    ├── lncRNA.2021****.bed.gz
+    ├── lncRNA_promoter.2021****.bed.gz
+    ├── lncRNA_splice_site.2021****.bed.gz
+    ├── open_access.2021****.bed.gz
+    ├── protein_coding.2021****.bed.gz
+    ├── protein_coding_promoter.2021****.bed.gz
+    ├── protein_coding_splice_site.2021****.bed.gz
+    ├── smallRNA.2021****.bed.gz
+    ├── smallRNA_promoter.2021****.bed.gz
+    ├── smallRNA_splice_site.2021****.bed.gz
+    ├── utr3.2021****.bed.gz
+    └── utr5.2021****.bed.gz
 ```
 
 
