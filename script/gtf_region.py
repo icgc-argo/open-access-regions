@@ -29,6 +29,7 @@ import shutil
 import urllib.request as request
 from contextlib import closing
 from urllib.error import URLError
+from datetime import date
 
 def get_promoter(tcx, glen, w=200):
     promoter = []
@@ -354,16 +355,17 @@ def main():
             gene_region['merged_'+region] = bedmerge(gene_region[region], gene_id)
             gencode_regions[region] += gene_region['merged_'+region]
 
+    date_str = date.today().strftime("%Y%m%d")
     open_access_region_list = []
     for region in gencode_regions:
-        create_region_bed(gencode_regions[region], bed_dir, region)
+        create_region_bed(gencode_regions[region], bed_dir, region+'.'+date_str)
         if not region in open_access_regions: continue
         open_access_region_list += gencode_regions[region]
     merged_open_access_region_list = bedmerge(open_access_region_list)
 
     control_access_region_list = get_conjugate(merged_open_access_region_list, genomeLen)
-    create_region_bed(merged_open_access_region_list, bed_dir, 'open_access')
-    create_region_bed(control_access_region_list, bed_dir, 'control_access')        
+    create_region_bed(merged_open_access_region_list, bed_dir, 'open_access.'+date_str)
+    create_region_bed(control_access_region_list, bed_dir, 'control_access.'+date_str)        
         
 if __name__ == "__main__":
     main()

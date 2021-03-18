@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+data/hg38/annotation/
+data/hg38/bed/gencode.v37/
+!data/hg38/bed/gencode.v37/open_access.*.bed.gz
