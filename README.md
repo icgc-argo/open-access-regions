@@ -2,7 +2,7 @@
 ICGC-ARGO Open-access regions definitions and bed files
 
 ## Definitions for Open-access Regions 
-- Genomic elements are defined according to the definitions in the table based on GENCODE annotations v37
+- Genomic elements are defined according to the definitions in the table based on GENCODE annotations v38
 - Open-access = CDS + Exon + UTR + Promoter + splice site + small ncRNA
 - Control-access = complementary regions of Open-access upon whole genome
 

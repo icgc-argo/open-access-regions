@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """
 Authors:
-  Linda Xiang <linda.xiang@oicr.on.ca>
+  Linda Xiang
 
-Copyright (c) 2021, Ontario Institute for Cancer Research (OICR).
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
 by the Free Software Foundation, either version 3 of the License, or
@@ -271,7 +270,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('-g','--gtf_dir', dest="gtf_dir", type=str, default="../data/hg38/annotation", help="local directory for GTF file: only ENSEMBL or GENCODE GTF file accepted")
     parser.add_argument('-u','--gtf_url', dest="gtf_url", type=str, default="ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human", help="specify URL to download GTF file. Use GENCODE by default")
-    parser.add_argument('-v','--gtf_version', dest="gtf_version", type=str, default="37", help="specify GTF release version to download")
+    parser.add_argument('-v','--gtf_version', dest="gtf_version", type=str, default="38", help="specify GTF release version to download")
     parser.add_argument('-l','--glen', dest='glen',type=str, default="../data/hg38/hg38.chrom.sizes",help="file for genome size")
     parser.add_argument('-w','--window',dest='window_size',type=int,default=200,help="the value of w in calculating TSS regions. Default: 200")
     parser.add_argument('-b','--bed_dir',dest='bed_dir',default="../data/hg38/bed",help="directory for output bed files")
