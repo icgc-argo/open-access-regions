@@ -2,7 +2,7 @@
 ICGC-ARGO Open-access regions definitions and bed files
 
 ## Definitions for Open-access Regions 
-- Genomic elements are defined according to the definitions in the table based on GENCODE annotations v38
+- Genomic elements are defined according to the definitions in the table based on [GENCODE annotations v38](https://www.gencodegenes.org/human/release_38.html)
 - Open-access = CDS + Exon + UTR + Promoter + splice site + small ncRNA
 - Control-access = complementary regions of Open-access upon whole genome
 
@@ -20,35 +20,6 @@ ICGC-ARGO Open-access regions definitions and bed files
 | LncRNA splice site         | Intronic regions extending six bases from donor splice sites and 20 bases from acceptor splice sites were collected for all lncRNA transcripts. <br />Bases were collapsed across all lncRNA transcripts with a given gene GENCODE ID.                                               | feature_type=transcript<br /> transcript_type=lncRNA<br />locate all the introns and donor/acceptor splice sites for each transcript<br />get the regions (-3, 6) and (-20, 3) around donor/acceptor splice sites          |
 | smallRNA                   | smallRNA transcripts were defined based on GENCODE transcripts with biotype: ['Mt_rRNA', 'Mt_tRNA', 'miRNA', 'misc_RNA', 'rRNA', 'scRNA', 'snRNA', 'snoRNA', 'ribozyme', 'sRNA', 'scaRNA']. <br />Bases were collapsed across all smallRNA transcripts with a given gene GENCODE ID. | feature_type=transcript<br />transcript_type in ['Mt_rRNA', 'Mt_tRNA', 'miRNA', 'misc_RNA', 'rRNA', 'scRNA', 'snRNA', 'snoRNA', 'ribozyme', 'sRNA', 'scaRNA']                                                                                                                                                        |
 | smallRNA promoter          | Regions extending 200 bases in upstreaming direction from all smallRNA transcripts’ transcription start sites (5’ ends). <br />Bases were collapsed across all smallRNA transcripts with a given gene GENCODE ID.                                                                    | feature_type=transcript<br />transcript_type in ['Mt_rRNA', 'Mt_tRNA', 'miRNA', 'misc_RNA', 'rRNA', 'scRNA', 'snRNA', 'snoRNA', 'ribozyme', 'sRNA', 'scaRNA']<br />locate the TSS for each transcript<br />get the regions (-200, 0) upstreaming of TSS                                                                              |
-
-
-## Bed files for Open-access Regions
-- You can find the generated bed files for Open-access Regions at your local folder `data/hg38/bed/gencode.v37/`
-- Here each genomic element has its own bed file for example: `exon.bed.gz`, `smallRNA.bed.gz`, `utr3.bed.gz` and etc.
-- `open_access.bed.gz` contains the union of all the Open-access regions defined above.
-- `control_access.bed.gz` contains the complementary regions of Open-access upon whole genome.
-- However ONLY `open_access.2021****.bed.gz` are kept in git.
-
-```
-data/hg38/bed/
-└── gencode.v37
-    ├── cds.2021****.bed.gz
-    ├── control_access.2021****.bed.gz
-    ├── exon.2021****.bed.gz
-    ├── intron.2021****.bed.gz
-    ├── lncRNA.2021****.bed.gz
-    ├── lncRNA_promoter.2021****.bed.gz
-    ├── lncRNA_splice_site.2021****.bed.gz
-    ├── open_access.2021****.bed.gz
-    ├── protein_coding.2021****.bed.gz
-    ├── protein_coding_promoter.2021****.bed.gz
-    ├── protein_coding_splice_site.2021****.bed.gz
-    ├── smallRNA.2021****.bed.gz
-    ├── smallRNA_promoter.2021****.bed.gz
-    ├── smallRNA_splice_site.2021****.bed.gz
-    ├── utr3.2021****.bed.gz
-    └── utr5.2021****.bed.gz
-```
 
 
 ## Script for generating Open-access bed files
@@ -83,4 +54,37 @@ optional arguments:
   -o OPEN_ACCESS_REGIONS [OPEN_ACCESS_REGIONS ...], --open_access_regions OPEN_ACCESS_REGIONS [OPEN_ACCESS_REGIONS ...]
                         specify regions to be included into open access tier
 ```
+
+
+
+## Bed files for Open-access Regions
+- You can find the generated bed files for Open-access Regions at your local folder `data/hg38/bed/gencode.v**/`. E.g.,
+```
+data/hg38/bed
+└── gencode.v38
+    ├── cds.gencode_v38.20210915.bed.gz
+    ├── control_access.gencode_v38.20210915.bed.gz
+    ├── exon.gencode_v38.20210915.bed.gz
+    ├── intron.gencode_v38.20210915.bed.gz
+    ├── lncRNA.gencode_v38.20210915.bed.gz
+    ├── lncRNA_promoter.gencode_v38.20210915.bed.gz
+    ├── lncRNA_splice_site.gencode_v38.20210915.bed.gz
+    ├── open_access.gencode_v38.20210915.bed.gz
+    ├── protein_coding.gencode_v38.20210915.bed.gz
+    ├── protein_coding_promoter.gencode_v38.20210915.bed.gz
+    ├── protein_coding_splice_site.gencode_v38.20210915.bed.gz
+    ├── smallRNA.gencode_v38.20210915.bed.gz
+    ├── smallRNA_promoter.gencode_v38.20210915.bed.gz
+    ├── smallRNA_splice_site.gencode_v38.20210915.bed.gz
+    ├── utr3.gencode_v38.20210915.bed.gz
+    └── utr5.gencode_v38.20210915.bed.gz
+```
+
+- Here each genomic element has its own bed file for example: `exon.gencode_v**.{date}.bed.gz`, `smallRNA.gencode_v**.{date}.bed.gz`, `utr3.gencode_v**.{date}.bed.gz` and etc.
+- `open_access.gencode_v**.{date}.bed.gz` contains the union of all the Open-access regions defined above.
+- `control_access.gencode_v**.{date}.bed.gz` contains the complementary regions of Open-access upon whole genome.
+- However ONLY `open_access.gencode_v**.{date}.bed.gz` are kept in git.
+
+
+
 
